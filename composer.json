@@ -1,0 +1,23 @@
+{
+  "name": "larastu/simple-excel",
+  "description": "简易的Excel操作类",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Larastu\\SimpleExcel\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "larastu",
+      "email": "jq_hncj_2010@163.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "ext-zip": "*",
+    "ext-json": "*",
+    "ext-ctype": "*"
+  }
+}
