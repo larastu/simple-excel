@@ -198,15 +198,15 @@ class ExcelWriter
 
     protected function buildWorkbookXML(): string
     {
-        $i = 0;
         $xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
         $xml .= '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">';
         $xml .= '<fileVersion appName="Calc"/><workbookPr backupFile="false" showObjects="all" date1904="false"/><workbookProtection/>';
         $xml .= '<bookViews><workbookView activeTab="0" firstSheet="0" showHorizontalScroll="true" showSheetTabs="true" showVerticalScroll="true" tabRatio="212" windowHeight="8192" windowWidth="16384" xWindow="0" yWindow="0"/></bookViews>';
         $xml .= '<sheets>';
+        $sheetId = 1;
         foreach ($this->sheetMap as $sheet) {
-            $xml .= '<sheet name="' . Util::xmlSpecialChars($sheet->getName()) . '" sheetId="' . ($i + 1) . '" state="visible" r:id="rId' . ($i + 2) . '"/>';
-            $i++;
+            $xml .= '<sheet name="' . Util::xmlSpecialChars($sheet->getName()) . '" sheetId="' . $sheetId . '" state="visible" r:id="rId' . $sheetId . '"/>';
+            $sheetId++;
         }
         $xml .= '</sheets>';
         $xml .= '<definedNames>';
@@ -216,7 +216,6 @@ class ExcelWriter
                     . Util::xmlSpecialChars($sheet->getName()) . '\'!$A$1:'
                     . Sheet::xlsCell($sheet->getRowCount() - 1, $sheet->getColumnCount() - 1, true)
                     . '</definedName>';
-                $i++;
             }
         }
         $xml .= '</definedNames>';
@@ -228,10 +227,10 @@ class ExcelWriter
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">';
-        $xml .= '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>';
+        $xml .= '<Relationship Id="rId0" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>';
         $sheetIndex = 1;
         foreach ($this->sheetMap as $sheet) {
-            $xml .= '<Relationship Id="rId' . ($sheetIndex + 1) . '"'
+            $xml .= '<Relationship Id="rId' . $sheetIndex . '"'
                 . ' Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"'
                 . ' Target="worksheets/sheet' . $sheetIndex . '.xml"/>';
             $sheetIndex++;

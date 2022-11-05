@@ -18,6 +18,9 @@
   "require": {
     "ext-zip": "*",
     "ext-json": "*",
-    "ext-ctype": "*"
+    "ext-ctype": "*",
+    "ext-xmlreader": "*",
+    "ext-simplexml": "*",
+    "ext-gmp": "*"
   }
 }
